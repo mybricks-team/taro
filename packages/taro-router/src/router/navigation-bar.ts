@@ -76,7 +76,10 @@ export default class NavigationBarHandler {
   }
 
   setNavigationBarElement () {
-    this.navigationBarElement = document.getElementById('taro-navigation-bar') as HTMLElement
+    // this.navigationBarElement = document.getElementById('taro-navigation-bar') as HTMLElement
+    // [MyBricks.ai]
+    // @ts-ignore
+    this.navigationBarElement = document.getElementById('_mybricks-geo-webview_').shadowRoot.getElementById('taro-navigation-bar')
   }
 
   load () {

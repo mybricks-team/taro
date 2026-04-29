@@ -1,4 +1,5 @@
-import { Current, getPageInstance, injectPageInstance } from '@tarojs/runtime'
+// [MyBricks.ai] 导入 removePageInstance
+import { Current, getPageInstance, injectPageInstance, removePageInstance } from '@tarojs/runtime'
 import { isArray, isFunction } from '@tarojs/shared'
 
 import { reactMeta } from './react-meta'
@@ -40,6 +41,10 @@ const createTaroHook = (lifecycle: keyof PageLifeCycle | keyof AppInstance) => {
 
       if (first) {
         injectPageInstance(inst!, id)
+        // [MyBricks.ai] 销毁重置
+        reactMeta.destroy = () => {
+          removePageInstance(id)
+        }
       }
       return () => {
         const inst = instRef.current

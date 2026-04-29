@@ -29,7 +29,8 @@ body {
   transform: translate(0, 0);
 }
 `
-  addStyle(css)
+  // [MyBricks.ai] 注入唯一id
+  addStyle(css, 'animate')
 }
 
 /**
@@ -83,7 +84,8 @@ ${
   }`
 }
 `
-  addStyle(css)
+  // [MyBricks.ai] 注入唯一id
+  addStyle(css, 'router')
 }
 
 /**
@@ -174,12 +176,25 @@ export function loadNavigationBarStyle () {
     height: 24px;
   }
 `
-  addStyle(css)
+  // [MyBricks.ai] 注入唯一id
+  addStyle(css, 'navigationBar')
 }
 
-export function addStyle (css) {
+// [MyBricks.ai] 缓存style标签，防止重复添加
+const CACHE_STYLE: Record<string, HTMLStyleElement> = {}
+
+export function addStyle (css, id: string) {
   if (!css) return
-  const style = document.createElement('style')
-  style.innerHTML = css
-  document.getElementsByTagName('head')[0].appendChild(style)
+
+  // [MyBricks.ai] 没有style则创建，否则覆盖innerHTML
+  const cacheID = `taro-router-${id}`
+
+  if (!CACHE_STYLE[cacheID]) {
+    const style = document.createElement('style')
+    style.innerHTML = css
+    // @ts-ignore
+    document.getElementById('_mybricks-geo-webview_').shadowRoot.appendChild(style)
+  } else {
+    CACHE_STYLE[cacheID].innerHTML = css
+  }
 }

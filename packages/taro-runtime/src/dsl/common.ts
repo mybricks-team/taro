@@ -153,7 +153,10 @@ export function createPageConfig (component: any, pageName?: string, data?: Reco
           if (process.env.TARO_ENV === 'tt' && isEnableTTDom()) {
             pageElement = (env.document as any).getPageDocumentById(this.__webviewId__)
           } else {
-            pageElement = env.document.getElementById<TaroRootElement>($taroPath)
+            // pageElement = env.document.getElementById<TaroRootElement>($taroPath)
+            // [MyBricks.ai]
+            // @ts-ignore
+            pageElement = document.getElementById('_mybricks-geo-webview_').shadowRoot.getElementById<TaroRootElement>($taroPath)
           }
 
           ensure(pageElement !== null, '没有找到页面实例。')

@@ -8,6 +8,8 @@ export * from './api'
 export * from './history'
 export { createMultiRouter } from './router/mpa'
 export { createRouter } from './router/spa'
+// [MyBricks.ai] 导出stacks，用于重置
+export { default as stacks } from './router/stack'
 export * from './utils'
 
 export function handleAppMount (config: SpaRouterConfig | MpaRouterConfig, _: History, appId = config.appId || 'app') {
@@ -26,7 +28,10 @@ export function handleAppMount (config: SpaRouterConfig | MpaRouterConfig, _: Hi
 }
 
 export function handleAppMountWithTabbar (config: SpaRouterConfig | MpaRouterConfig, history: History, appId = config.appId || 'app') {
-  let app = document.getElementById(appId)
+  // let app = document.getElementById(appId)
+  // [MyBricks.ai]
+  // @ts-ignore
+  let app = document.getElementById('_mybricks-geo-webview_').shadowRoot.getElementById(appId)
   let isPosition = true
   if (!app) {
     app = document.createElement('div')

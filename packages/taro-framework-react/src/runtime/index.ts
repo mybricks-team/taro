@@ -77,3 +77,5 @@ if (process.env.FRAMEWORK === 'preact' && process.env.TARO_PLATFORM === 'mini') 
 export * from './connect'
 export * from './connect-native'
 export * from './hooks'
+// [MyBricks.ai] 导出react-meta，外部可控制重置
+export * from './react-meta'

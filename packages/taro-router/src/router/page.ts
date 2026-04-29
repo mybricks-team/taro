@@ -316,7 +316,10 @@ export default class PageHandler {
     const path = page ? page?.path : Current.page?.path
     const id = path?.replace(/([^a-z0-9\u00a0-\uffff_-])/ig, '\\$1')
     if (page) {
-      return document.querySelector(`.taro_page#${id}`)
+      // return document.querySelector(`.taro_page#${id}`)
+      // [MyBricks.ai]
+      // @ts-ignore
+      return document.getElementById('_mybricks-geo-webview_').shadowRoot.querySelector(`.taro_page#${id}`)
     }
     const el: HTMLDivElement | null = (id
       ? document.querySelector(`.taro_page#${id}`)

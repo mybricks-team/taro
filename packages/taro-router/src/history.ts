@@ -1,5 +1,6 @@
 import { addLeadingSlash } from '@tarojs/runtime'
-import { Action, createBrowserHistory, createHashHistory } from 'history'
+// [MyBricks.ai] 导入createMemoryHistory
+import { Action, createBrowserHistory, createHashHistory, createMemoryHistory } from 'history'
 
 import { RouterConfig } from './router'
 
@@ -106,7 +107,8 @@ export function setHistory (h: History, base = '/') {
 export function createMpaHistory (_?: HashHistoryOptions | BrowserHistoryOptions) {
   return new MpaHistory()
 }
-export { createBrowserHistory, createHashHistory }
+// [MyBricks.ai] 导出createMemoryHistory
+export { createBrowserHistory, createHashHistory, createMemoryHistory }
 
 export function setHistoryMode (mode?: IH5RouterConfig['mode'], base = '/') {
   const options: BrowserHistoryOptions = {

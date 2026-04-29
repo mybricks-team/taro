@@ -206,7 +206,12 @@ export function createRouter (
         {},
         loadConfig
       )
-      if (params) page.options = params
+      // if (params) page.options = params
+      // [MyBricks.ai] 处理memory路由的参数传递问题
+      page.options = params || {}
+      const pageQuery = handler.getQuery(pageStampId, location.search)
+      // @ts-ignore
+      Object.assign(page.options, pageQuery)
       handler.load(page, pageConfig, pageStampId, stacksIndex)
     }
   }

@@ -201,7 +201,10 @@ export function createReactApp (
 
   function renderReactRoot () {
     const appId = config?.appId || 'app'
-    let container = document.getElementById(appId)
+    // let container = document.getElementById(appId)
+    // [MyBricks.ai]
+    // @ts-ignore web 引擎环境渲染，一定能找到对应dom元素
+    let container = document.getElementById('_mybricks-geo-webview_').shadowRoot.getElementById(appId)
     if (container == null) {
       const appContainer = document.getElementById(CONTAINER)
       container = document.createElement(appId)
@@ -254,10 +257,15 @@ export function createReactApp (
         elements.push(page())
       }
 
-      let props: React.ComponentProps<any> | null = null
+      // [MyBricks.ai] ai组件渲染逻辑，_standalone参数可以禁用默认的路由
+      const props: React.ComponentProps<any> | null = {
+        _standalone: true
+      }
 
       if (isReactComponent) {
-        props = { ref: appInstanceRef }
+        // props = { ref: appInstanceRef }
+        // [MyBricks.ai]
+        props.ref = appInstanceRef
       }
 
       return h(

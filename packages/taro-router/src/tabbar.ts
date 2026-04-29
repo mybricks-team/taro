@@ -26,7 +26,10 @@ export function initTabbar (config: AppConfig, history: History) {
   if (typeof routerConfig.basename !== 'undefined') {
     tabbar.conf.basename = routerConfig.basename
   }
-  const container = document.getElementById('container')
+  // const container = document.getElementById('container')
+  // [MyBricks.ai]
+  // @ts-ignore
+  const container = document.getElementById('_mybricks-geo-webview_').shadowRoot.getElementById('container')
   container?.appendChild(tabbar)
   initTabBarApis(config)
 }
