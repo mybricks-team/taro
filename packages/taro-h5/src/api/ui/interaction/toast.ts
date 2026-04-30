@@ -152,7 +152,7 @@ export default class Toast {
     // show immediately
     // document.body.appendChild(this.el)
     // [MyBricks.ai]
-    document.querySelector('#_mybricks-geo-webview_')?.shadowRoot?.querySelector('#MyBricksAITaro')?.appendChild(this.el)
+    document.querySelector('#_mybricks-geo-webview_')?.shadowRoot?.querySelector('#MyBricksAITaroContainer')?.appendChild(this.el)
     setTimeout(() => { this.el.style.opacity = '1' }, 0)
     this.type = config._type
 
