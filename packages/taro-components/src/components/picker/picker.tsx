@@ -82,7 +82,7 @@ export class Picker implements ComponentInterface {
     if (this.overlay) {
       // document.body.appendChild(this.overlay)
       // [MyBricks.ai]
-      document.querySelector("#_mybricks-geo-webview_")?.shadowRoot?.querySelector("#MyBricksAITaro")?.appendChild(this.overlay)
+      document.querySelector("#_mybricks-geo-webview_")?.shadowRoot?.querySelector("#MyBricksAITaroContainer")?.appendChild(this.overlay)
     }
   }
 
