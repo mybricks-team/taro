@@ -30,12 +30,14 @@ function init (doc) {
 }
 
 let toast = new Toast()
-const modal = new Modal()
-const actionSheet = new ActionSheet()
+let modal = new Modal()
+let actionSheet = new ActionSheet()
 
 // [MyBricks.ai] 重置
 const resetInteraction = () => {
   toast = new Toast()
+  modal = new Modal()
+  actionSheet = new ActionSheet()
 }
 
 const showToast: typeof Taro.showToast = (options = { title: '' }) => {
