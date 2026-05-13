@@ -312,8 +312,15 @@ export class Swiper implements ComponentInterface {
     const slidesPerView = displayMultipleItems
     // eslint-disable-next-line @typescript-eslint/no-this-alias
     const that = this
+
+    // [MyBricks.ai]
+    const shadowRoot = document.getElementById('_mybricks-geo-webview_')!.shadowRoot!
+    const containerEl = shadowRoot.querySelector(`.taro-swiper-${this.#id} > .swiper-container`) as HTMLElement
+    const paginationEl = shadowRoot.querySelector(`.taro-swiper-${this.#id} > .swiper-container > .swiper-pagination`) as HTMLElement
+
     const options: any = {
-      pagination: { el: `.taro-swiper-${this.#id} > .swiper-container > .swiper-pagination` },
+      // [MyBricks.ai]
+      pagination: { el: paginationEl },
       direction: vertical ? 'vertical' : 'horizontal',
       loop: circular,
       slidesPerView: slidesPerView,
@@ -384,7 +391,8 @@ export class Swiper implements ComponentInterface {
         disableOnInteraction: false
       }
     }
-    this.swiper = new SwiperJS(`.taro-swiper-${this.#id} > .swiper-container`, options)
+    // [MyBricks.ai]
+    this.swiper = new SwiperJS(containerEl, options)
 
     // Note: 这里是拦截了 swiper 的 minTranslate 和 maxTranslate 方法，手动修复了 loop 模式下的 margin 问题
     // 因为这两个属性会影响滑动到哪个位置进行 fixloop

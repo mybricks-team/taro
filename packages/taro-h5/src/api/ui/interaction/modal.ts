@@ -168,7 +168,9 @@ export default class Modal {
       this.el.appendChild(modal)
 
       // show immediately
-      document.body.appendChild(this.el)
+      // document.body.appendChild(this.el)
+      // [MyBricks.ai]
+      document.querySelector('#_mybricks-geo-webview_')?.shadowRoot?.querySelector('#MyBricksAITaroContainer')?.appendChild(this.el)
       setTimeout(() => { this.el.style.opacity = '1' }, 0)
 
       // Current.page不存在时说明路由还未挂载，此时需根据url来分配将要渲染的页面path

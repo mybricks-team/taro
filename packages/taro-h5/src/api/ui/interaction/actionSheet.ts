@@ -157,7 +157,9 @@ export default class ActionSheet {
       this.cancel.onclick = cb
 
       // show immediately
-      document.body.appendChild(this.el)
+      // document.body.appendChild(this.el)
+      // [MyBricks.ai]
+      document.querySelector('#_mybricks-geo-webview_')?.shadowRoot?.querySelector('#MyBricksAITaroContainer')?.appendChild(this.el)
       setTimeout(() => {
         this.el.style.opacity = '1'
         setTransform(this.actionSheet, 'translate(0, 0)')

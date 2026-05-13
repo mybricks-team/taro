@@ -1,4 +1,6 @@
 import Taro from '@tarojs/api'
+// [MyBricks.ai]
+import { Current } from '@tarojs/runtime'
 import { isFunction } from '@tarojs/shared'
 
 import { findDOM } from '../../utils'
@@ -128,11 +130,26 @@ function queryBat (queue: ISelectorQueryQueue[], cb: (...args: any[]) => any): v
     const { selector, single, fields, component } = item
     // selector 的容器节点
     /* eslint-disable */
-    const container: TElement = (
-      component !== null ?
-        (findDOM(component) as HTMLElement || document) :
-        document
-    )
+    // const container: TElement = (
+    //   component !== null ?
+    //     (findDOM(component) as HTMLElement || document) :
+    //     document
+    // )
+
+    // [MyBricks.ai] 兼容设计态没有Current.page的问题，目前实现方式要求不同页面的 canvasId 要做区分，document -> shadowRoot
+    const shadowRoot = document.getElementById('_mybricks-geo-webview_')!.shadowRoot
+    let container
+    const page = Current.page
+    const path = page === null || page === undefined ? undefined : page.path
+    if (path == null) {
+      container = shadowRoot
+    } else {
+      container = (
+        component !== null ?
+          (findDOM(component) as HTMLElement || shadowRoot) :
+          shadowRoot
+      )
+    }
     /* eslint-enable */
 
     // 特殊处理 ---- 选自己

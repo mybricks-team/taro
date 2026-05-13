@@ -30,7 +30,9 @@ export function findDOM (inst?): TaroElement | HTMLElement | undefined {
     throw new Error(msg)
   }
 
-  const el = document.getElementById(path)
+  // const el = document.getElementById(path)
+  // [MyBricks.ai]
+  const el = document.getElementById('_mybricks-geo-webview_')!.shadowRoot!.getElementById(path)
   if (el == null) {
     throw new Error('在已加载页面中没有找到对应的容器元素。')
   }

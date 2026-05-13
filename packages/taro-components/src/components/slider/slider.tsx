@@ -47,6 +47,15 @@ export class Slider implements ComponentInterface {
     this.handler.addEventListener('touchstart', this.handleTouchStart)
     this.handler.addEventListener('touchmove', this.handleTouchMove)
     this.handler.addEventListener('touchend', this.handleTouchEnd)
+
+    // [MyBricks.ai] 支持桌面浏览器鼠标拖拽
+    this.handler.addEventListener('mousedown', this.handleMouseDown)
+  }
+
+  // [MyBricks.ai] 支持桌面浏览器鼠标拖拽
+  disconnectedCallback () {
+    document.removeEventListener('mousemove', this.handleMouseMove)
+    document.removeEventListener('mouseup', this.handleMouseUp)
   }
 
   @Event({
@@ -65,6 +74,61 @@ export class Slider implements ComponentInterface {
 
     const val = this.handleValueUpdate(value, min, max)
     this.updateByStep(val)
+  }
+
+  // [MyBricks.ai] 支持桌面浏览器鼠标拖拽
+  handleMouseDown = (e: MouseEvent) => {
+    if (this.touching || this.disabled) return
+
+    this.touching = true
+    this.totalWidth = this.sliderInsRef.clientWidth || 1
+    this.ogX = e.pageX
+    this.ogPercent = this.percent
+
+    document.addEventListener('mousemove', this.handleMouseMove)
+    document.addEventListener('mouseup', this.handleMouseUp)
+  }
+
+  // [MyBricks.ai] 支持桌面浏览器鼠标拖拽
+  handleMouseMove = (e: MouseEvent) => {
+    const { disabled, touching, totalWidth, max, min, ogX, ogPercent } = this
+    if (!touching || disabled) return
+
+    e.preventDefault()
+
+    const pageX = e.pageX
+    const diffX = pageX - ogX
+
+    let percent = diffX / totalWidth * 100 + ogPercent
+    percent = this.handleValueUpdate(percent, 0, 100)
+    const val = min + percent * 0.01 * (max - min)
+
+    this.updateByStep(val)
+
+    this.onChanging.emit({
+      detail: 0,
+      value: this.value
+    })
+  }
+
+  // [MyBricks.ai] 支持桌面浏览器鼠标拖拽
+  handleMouseUp = (_e: MouseEvent) => {
+    const { disabled, touching } = this
+    if (!touching || disabled) return
+
+    if (this.percent !== this.ogPercent) {
+      this.onChange.emit({
+        detail: 0,
+        value: this.value
+      })
+    }
+
+    this.touching = false
+    this.ogX = 0
+    this.ogPercent = 0
+
+    document.removeEventListener('mousemove', this.handleMouseMove)
+    document.removeEventListener('mouseup', this.handleMouseUp)
   }
 
   handleTouchStart = (e: TouchEvent) => {

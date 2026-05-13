@@ -92,7 +92,9 @@ export const previewImage: typeof Taro.previewImage = async (options) => {
   swiper.current = currentIndex
 
   container.appendChild(swiper)
-  document.body.appendChild(container)
+  // [MyBricks.ai]
+  // document.body.appendChild(container)
+  document.querySelector('#_mybricks-geo-webview_')?.shadowRoot?.querySelector('#MyBricksAITaroContainer')?.appendChild(container)
 
   return handle.success()
 }
