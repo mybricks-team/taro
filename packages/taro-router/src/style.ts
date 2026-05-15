@@ -50,7 +50,7 @@ export function loadRouterStyle (enableTabBar: boolean, enableWindowScroll: bool
 ${
   enableWindowScroll ? '' : `
     overflow-x: hidden;
-    overflow-y: scroll;
+    overflow-y: auto;
     max-height: 100vh;
 `}
   }
